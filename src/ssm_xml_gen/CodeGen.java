@@ -60,9 +60,9 @@ public class CodeGen {
 		sum += tab + tab + " * " + comment + "" + nl;
 		sum += tab + tab + " * " + "@version" + " " + now + nl;
 		sum += tab + tab + " */" + nl;
-		sum += tab + tab + "public " + returnBody + " " + methodName + "(" + StrUtil.join(",", paramList) + ") "
+		sum += tab + tab + "public " + returnBody + " " + methodName + "(" + StrUtil.join(", ", paramList) + ") "
 				+ exception + "{" + nl;
-		sum += tab + tab + "Map<String,Object> map = new HashMAp<String,Object>();" + nl;
+		sum += tab + tab + "Map<String, Object> map = new HashMap<String, Object>();" + nl;
 		for (int i = 0; i < paramList.size(); i++) {
 			String row = paramList.get(i);
 			String[] analysisParam = analysisParam(row);
@@ -75,7 +75,7 @@ public class CodeGen {
 			}
 			String key = name;
 			String value = name;
-			sum += tab + tab + tab + "map.put(\"" + key + ", " + "" + value + "" + ");" + nl;
+			sum += tab + tab + tab + "map.put(\"" + key + "\", " + "" + value + "" + ");" + nl;
 		}
 		String filebaseName = "BaseMapper";
 		sum += tab + tab + tab + returnBody + " result" + " = " + "dao." + currencyMethod(methodName, returnBody) + "("
@@ -143,7 +143,8 @@ public class CodeGen {
 			}
 			String key = name;
 			String value = name;
-			sum += tab + tab + tab + "#{" + key + "}" + nl;
+			String underlineCase = StrUtil.toUnderlineCase(key);
+			sum += tab + tab + tab + underlineCase + " = "+ "#{" + key + "}" + nl;
 		}
 //		sum += tab + tab + "" + nl;
 		sum += tab + tab + "</" + nodeName + ">" + nl;
